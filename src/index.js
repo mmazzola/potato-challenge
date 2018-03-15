@@ -14,7 +14,9 @@ const AUTHOR_PAGE_URL = "https://www.flickr.com/photos/{id}/"
 const DETAIL_URL = "/detail"
 const DEFAULT_LOAD_TEXT = "Loading post..."
 const DEFAULT_TITLE = " - Missing Title -  "
+//TODO FIX THE PLACEHOLDER DIMENSION
 const IMG_PLACEHOLDER_URL = "http://via.placeholder.com/150x100?text=?"
+const IMG_WIDTH_PERC = 0.12
 
 require('es6-promise').polyfill();
 var fetchJsonp=require('fetch-jsonp');
@@ -36,12 +38,13 @@ class FlickrList extends React.Component {
         loadedRowsMap: {},
         loadingRowCount: 0,
         list : [{title : 1},{title : 2},{title : 3},{title : 4},{title : 5}],
-        postWidth:0
+        listWidth:0
       };
       this.isRowLoaded = this.isRowLoaded.bind(this)
       this.rowRenderer = this.rowRenderer.bind(this)
       this.loadMoreRows = this.loadMoreRows.bind(this)
       this.onListResize = this.onListResize.bind(this)
+      this.getRowHeight = this.getRowHeight.bind(this)
     }
   // Manage loading state of rows
   isRowLoaded({index}){ return !!this.state.loadedRowsMap[index];}
@@ -49,12 +52,18 @@ class FlickrList extends React.Component {
   // Manage dynamic width of List
   onListResize(dimensions){
     this.setState({
-      postWidth: dimensions.width - 200
+      listWidth: dimensions.width -30
     });
+    this._List.recomputeRowHeights();
+  }
+
+  // Manage dynamic height of List rows
+  getRowHeight(index){
+    return this.state.listWidth * IMG_WIDTH_PERC
   }
 
   //Render a list item
-  rowRenderer({key, index, style}){
+  rowRenderer({key, index, style, isVisible}){
     const {loadedRowsMap} = this.state
     const post = this.state.list[index]
     let title
@@ -79,11 +88,11 @@ class FlickrList extends React.Component {
         key={key}
         style={style}
         >
-        <Link to={DETAIL_URL}><img className="image" alt={post.title} src={image}/></Link>
+        <Link className="image-link" to={DETAIL_URL}><img className="image" alt={post.title} src={image}/></Link>
         {
-          loaded ? 
+          loaded ?
           <div className="main-content">
-            <h1 style={{width:this.state.postWidth}}>
+            <h1 style={{width:this.state.listWidth * (1- IMG_WIDTH_PERC) }}>
               <Link to={DETAIL_URL}>{title.trim() ? title : DEFAULT_TITLE}</Link>
             </h1>
             <MediaQuery query="(max-width: 800px)">
@@ -144,14 +153,14 @@ class FlickrList extends React.Component {
             onResize={this.onListResize}>
             {({  width }) => (
             <List
-              id="post-list"
-              height={height}
+              ref ={(l) => {this._List = l; registerChild(l);}}
+              height={height  *0.68}
               width={width}
               className="flickr-list"
               onRowsRendered={onRowsRendered}
-              ref={registerChild}
               rowCount={this.state.list.length}
-              rowHeight={100}
+              rowHeight={this.getRowHeight}
+              overscanRowCount={2}
               rowRenderer={this.rowRenderer}/>
             )}
           </AutoSizer>
@@ -185,7 +194,7 @@ ReactDOM.render(
   <div className="fullscreen">
     <Header/>
     <div id="container">
-      <h1>Flickr Public Feed</h1>
+      <h1 className="list-header">Flickr Public Feed</h1>
         <Switch>
           <Route exact path="/" component={FlickrList} />
           <Route path={DETAIL_URL +"?post=:post"} component={DetailPost} />
