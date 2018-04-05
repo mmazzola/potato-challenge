@@ -1,22 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router,Route,Link, Switch} from 'react-router-dom'
-import {InfiniteLoader, List, AutoSizer,WindowScroller} from 'react-virtualized';
+import {InfiniteLoader, List,WindowScroller} from 'react-virtualized';
 import MediaQuery from 'react-responsive';
 import './index.css';
 
 const IS_LOADING = 1
 const IS_LOADED = 2
-//const API_KEY = "4b28bee1d7e7f34d4c21545b2b8c60f3";
-//const API_CODE = "6ccb42909e2a4973";
 const API_URL = "https://api.flickr.com/services/feeds/photos_public.gne?tags=potato&tagmode=all&format=json"
 const AUTHOR_PAGE_URL = "https://www.flickr.com/photos/{id}/"
 const DETAIL_URL = "/detail"
 const DEFAULT_LOAD_TEXT = "Loading post..."
 const DEFAULT_TITLE = " - Missing Title -  "
-//TODO FIX THE PLACEHOLDER DIMENSION
-const IMG_PLACEHOLDER_URL = "http://via.placeholder.com/150x100?text=?"
-const IMG_WIDTH_PERC = 0.12
+const IMG_PLACEHOLDER_URL = "http://via.placeholder.com/200x200?text=?"
 
 require('es6-promise').polyfill();
 var fetchJsonp=require('fetch-jsonp');
@@ -31,36 +27,62 @@ class Header extends React.Component {
 }
 
 class FlickrList extends React.Component {
+
   constructor(props){
     super(props);
     this.state = {
         loadedRowCount: 0,
         loadedRowsMap: {},
         loadingRowCount: 0,
-        list : [{title : 1},{title : 2},{title : 3},{title : 4},{title : 5}],
-        listWidth:0
+        list : [],
+        screen:
+        {
+          width : 0,
+          height : 0,
+          rowScaleDown: 0,
+          textScaleDown:0
+        }
       };
       this.isRowLoaded = this.isRowLoaded.bind(this)
       this.rowRenderer = this.rowRenderer.bind(this)
       this.loadMoreRows = this.loadMoreRows.bind(this)
-      this.onListResize = this.onListResize.bind(this)
       this.getRowHeight = this.getRowHeight.bind(this)
+      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
+    componentWillMount(){
+      this.loadMoreRows(0,5);
+      window.addEventListener('resize', this.updateWindowDimensions);
+      this.updateWindowDimensions();
+    }
+
+    componentWillUnmount() {
+      window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+      let rowScaleDown = 0.2;
+      let textScaleDown = 0.66;
+      if(window.innerWidth < 400){
+        rowScaleDown = 0.3;
+        textScaleDown = 0.53;
+      }
+      this.setState({screen : 
+        { width: window.innerWidth, height: window.innerHeight,
+        textScaleDown : textScaleDown, rowScaleDown : rowScaleDown }});
+      
+      if(this._List)
+      {
+        this._List.recomputeRowHeights();
+      }
+    }
+
+  //Handles different screen sizes for the row height of the list
+  getRowHeight(){
+    return this.state.screen.width * this.state.screen.rowScaleDown; 
+  }
+  
   // Manage loading state of rows
   isRowLoaded({index}){ return !!this.state.loadedRowsMap[index];}
-
-  // Manage dynamic width of List
-  onListResize(dimensions){
-    this.setState({
-      listWidth: dimensions.width -30
-    });
-    this._List.recomputeRowHeights();
-  }
-
-  // Manage dynamic height of List rows
-  getRowHeight(index){
-    return this.state.listWidth * IMG_WIDTH_PERC
-  }
 
   //Render a list item
   rowRenderer({key, index, style, isVisible}){
@@ -88,11 +110,15 @@ class FlickrList extends React.Component {
         key={key}
         style={style}
         >
-        <Link className="image-link" to={DETAIL_URL}><img className="image" alt={post.title} src={image}/></Link>
+        <Link className="image-link" to={DETAIL_URL}>
+          <img className="image" 
+          style={{maxWidth:this.state.screen.width * this.state.screen.rowScaleDown}}
+          alt={post.title} src={image}/>
+        </Link>
         {
           loaded ?
           <div className="main-content">
-            <h1 style={{width:this.state.listWidth * (1- IMG_WIDTH_PERC) }}>
+            <h1 style={{maxWidth:this.state.screen.width * this.state.screen.textScaleDown}}>
               <Link to={DETAIL_URL}>{title.trim() ? title : DEFAULT_TITLE}</Link>
             </h1>
             <MediaQuery query="(max-width: 800px)">
@@ -106,7 +132,7 @@ class FlickrList extends React.Component {
               <a href={post.link}>View on Flickr</a>
             </div> 
           </div>
-          :<div className="default-content">{title}</div>
+          :<div className="main-content">{title}</div>
       }
       </div>
     )
@@ -148,23 +174,21 @@ class FlickrList extends React.Component {
         rowCount={this.state.list.length}>
         {({onRowsRendered, registerChild}) => (
           <WindowScroller>
-            {({ height, isScrolling, scrollTop }) => (
-          <AutoSizer disableHeight
-            onResize={this.onListResize}>
-            {({  width }) => (
+            {({ height, width,isScrolling,scrollTop }) => (
             <List
               ref ={(l) => {this._List = l; registerChild(l);}}
-              height={height  *0.68}
+              height={height}
+              autoHeight
+              autoWidth
               width={width}
               className="flickr-list"
               onRowsRendered={onRowsRendered}
               rowCount={this.state.list.length}
               rowHeight={this.getRowHeight}
-              overscanRowCount={2}
+              scrollTop={scrollTop}
+              isScrolling = {isScrolling}
               rowRenderer={this.rowRenderer}/>
             )}
-          </AutoSizer>
-        )}
         </WindowScroller>
       )}
       </InfiniteLoader>
@@ -183,7 +207,6 @@ class DetailPost extends React.Component
     <h2>My Detail View</h2>
     )
   }
-
 }
 
 //========================================
