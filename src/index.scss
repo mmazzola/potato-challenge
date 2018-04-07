@@ -27,7 +27,7 @@ html, body {
 #root {
   height: 100%;
   padding-bottom: 30px;
-  background-color: white;
+  background-color: $color1;
   display:flex;
 }
 
@@ -35,21 +35,6 @@ html, body {
   margin:0 auto;
   width:100%;
   height: 100%;
-}
-
-header {
-  background-color: $color2;
-  align-items: center;
-  justify-content: center;
-  display: none;
-  font-size: 1.3vw;
-  color: white;
-  width:100%;
-  height: 12vh;
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:1;
 }
 
 #container {
@@ -127,4 +112,44 @@ header {
       font-size: 3vw;
     }
   }
+}
+
+.search-container{
+  margin: 20px 0 20px 0;
+
+  .search-input{
+    height: 5vh;
+    width:100%;
+    font-family: 'Dosis';
+    font-size: 3vh;
+  }
+
+  .search-suggestions-container{
+    opacity: 0;
+  }
+
+  .search-suggestions-container-open{
+    opacity:1;
+    transition: 1.5s;
+    .search-suggestions-list{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      list-style-type: none;
+      padding:0;
+
+      .search-suggestion{
+        padding: 7px;
+        margin:5px;
+        background-color:$color3;
+        color:$color2;
+      }
+    }
+  }
+}
+
+.search-container-open{
+  margin: 2px 0 2px 0;
 }
