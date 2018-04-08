@@ -369,7 +369,7 @@ ReactDOM.render(
   <Router>
   <div className="fullscreen">
     <div id="container">
-      <h1 className="list-header">Flickr Public Feed</h1>
+      <h1 className="list-header">Potatoes on Flickr</h1>
         <Switch>
           <Route exact path="/" component={MainView} />
           <Route path={DETAIL_URL +"?post=:post"} component={DetailPost} />

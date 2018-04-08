@@ -1,5 +1,5 @@
 $font-stack: Helvetica, sans-serif;
-@import url(//fonts.googleapis.com/css?family=Dosis|Pacifico);
+@import url(//fonts.googleapis.com/css?family=Dosis|Pacifico|Great+Vibes);
 
 /* COLORS */
 $color1: #ECDFBD;
@@ -45,8 +45,13 @@ html, body {
 }
 
 .list-header{
-  display: inline;
-  font-size: 3vw;
+  display: block;
+  font-size: 4.5vw;
+  text-align:center;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-family: 'Great Vibes';
+  width:100%;
 }
 
 .flickr-list {
@@ -115,7 +120,7 @@ html, body {
 }
 
 .search-container{
-  margin: 20px 0 20px 0;
+  margin: 0 0 20px 0;
 
   .search-input{
     height: 5vh;
@@ -145,6 +150,7 @@ html, body {
         margin:5px;
         background-color:$color3;
         color:$color2;
+        cursor: pointer;
       }
     }
   }
