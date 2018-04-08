@@ -18,8 +18,8 @@ html, body {
 
 .fullscreen {
   margin: 0 auto;
-  width: 100%;
-  height: 100%; }
+  width: 100vw;
+  height: 100vh; }
 
 #container {
   background-color: #ECDFBD;
@@ -118,3 +118,58 @@ html, body {
 
 .search-container-open {
   margin: 2px 0 2px 0; }
+
+.detail-container {
+  padding: 20px;
+  border: 1px solid black;
+  font-family: 'Dosis'; }
+  .detail-container .detail-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: 'Pacifico';
+    font-size: 4vw;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; }
+    .detail-container .detail-header .back-button {
+      padding: 1vw 2vw 1vw 2vw;
+      background-color: #F2AE72;
+      border: 2px solid #20457C;
+      cursor: pointer;
+      font-size: 2vw;
+      font-family: 'Dosis';
+      align-self: center; }
+  .detail-container .detail-info {
+    margin-top: 10px;
+    font-size: 2.5vw; }
+    .detail-container .detail-info * {
+      margin-right: 1vw; }
+  .detail-container .detail-main-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start; }
+    .detail-container .detail-main-content .detail-img {
+      margin-top: 20px;
+      margin-right: 15px;
+      max-width: 30%; }
+    .detail-container .detail-main-content .main-content {
+      font-size: 2vw; }
+      .detail-container .detail-main-content .main-content .detail-tag-container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start; }
+        .detail-container .detail-main-content .main-content .detail-tag-container ul {
+          margin: 0;
+          padding-left: 8px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          justify-content: flex-start;
+          list-style-type: none; }
+          .detail-container .detail-main-content .main-content .detail-tag-container ul li {
+            text-decoration: underline;
+            color: #20457C;
+            margin-right: 5px; }
