@@ -8,12 +8,12 @@ html, body {
 
 :any-link {
   text-decoration: none;
-  color: #20457C; }
+  color: #547779; }
 
 #root {
   height: 100%;
   padding-bottom: 30px;
-  background-color: #ECDFBD;
+  background-color: #E0C678;
   display: flex; }
 
 .fullscreen {
@@ -22,15 +22,16 @@ html, body {
   height: 100vh; }
 
 #container {
-  background-color: #ECDFBD;
+  background-color: #E0C678;
   padding-left: 3vw;
   padding-right: 3vw;
   padding-bottom: 15px; }
 
 .list-header {
+  color: #D75B48;
   display: block;
-  font-size: 4.5vw;
-  text-align: center;
+  font-size: 5.5vw;
+  text-align: left;
   margin-top: 15px;
   margin-bottom: 0;
   font-family: 'Great Vibes';
@@ -42,7 +43,7 @@ html, body {
 .post {
   border: 1px solid grey;
   display: flex;
-  background-color: #F2AE72; }
+  background-color: white; }
   .post span {
     white-space: nowrap;
     margin-left: 10px;
@@ -54,7 +55,7 @@ html, body {
     flex: 1 0 25%;
     padding: 10px;
     padding-right: 13px;
-    background-color: rgba(0, 0, 0, 0.3); }
+    background-color: white; }
     .post .image-link .image {
       box-shadow: 3px 3px rgba(0, 0, 0, 0.7);
       max-width: 20vw; }
@@ -77,7 +78,7 @@ html, body {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      color: #20457C; }
+      color: #547779; }
   .post .detail-content {
     display: flex;
     align-items: flex-end;
@@ -113,7 +114,7 @@ html, body {
         padding: 7px;
         margin: 5px;
         background-color: #F2AE72;
-        color: #20457C;
+        color: #547779;
         cursor: pointer; }
 
 .search-container-open {
@@ -136,7 +137,7 @@ html, body {
     .detail-container .detail-header .back-button {
       padding: 1vw 2vw 1vw 2vw;
       background-color: #F2AE72;
-      border: 2px solid #20457C;
+      border: 2px solid #547779;
       cursor: pointer;
       font-size: 2vw;
       font-family: 'Dosis';
@@ -171,5 +172,5 @@ html, body {
           list-style-type: none; }
           .detail-container .detail-main-content .main-content .detail-tag-container ul li {
             text-decoration: underline;
-            color: #20457C;
+            color: #547779;
             margin-right: 5px; }
