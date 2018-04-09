@@ -56,14 +56,11 @@ html, body {
 .flickr-list {
   padding:10px;
   background-color: rgba(255,255,255,0.3);
-  outline:2px solid $color4;
-  outline-offset: -10px;
 }
 
 .post {
   display: flex;
   background-color: $color5;
-
   span{
     white-space: nowrap;
     margin-left: 10px;
@@ -77,7 +74,9 @@ html, body {
     flex:1 0 25%;
     padding:10px;
     padding-right: 13px;
-    background-color: $color6; 
+    background-color: $color6;
+    border-bottom:1px solid $color4;
+
     .image{
       max-width: 20vw;
       object-fit: contain;
@@ -91,6 +90,8 @@ html, body {
     align-items: flex-start;
     justify-content: space-evenly;
     padding-left: 2px;
+    border-bottom:1px solid $color4;
+
     a{
       text-transform: capitalize;
     }

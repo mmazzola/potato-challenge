@@ -38,9 +38,7 @@ html, body {
 
 .flickr-list {
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.3);
-  outline: 2px solid #D75B48;
-  outline-offset: -10px; }
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .post {
   display: flex;
@@ -56,7 +54,8 @@ html, body {
     flex: 1 0 25%;
     padding: 10px;
     padding-right: 13px;
-    background-color: #E9EFEF; }
+    background-color: #E9EFEF;
+    border-bottom: 1px solid #D75B48; }
     .post .image-link .image {
       max-width: 20vw;
       object-fit: contain; }
@@ -67,7 +66,8 @@ html, body {
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-evenly;
-    padding-left: 2px; }
+    padding-left: 2px;
+    border-bottom: 1px solid #D75B48; }
     .post .main-content a {
       text-transform: capitalize; }
     .post .main-content h1 {
