@@ -19,28 +19,30 @@ export class DetailPost extends React.Component
         let dateString = getPublishedDate(post.published);
 
         return (
-        <div className="detail-container" >
-            <div className="detail-header">
-                <a href={post.link}>{post.title}</a>
-                <button className="back-button" onClick={()=>{window.history.back()}}>Back</button>
-            </div>
-            <div className="detail-info">
-                <a href={AUTHOR_PAGE_URL.replace("{id}", post.author_id)}>Photo author</a> 
-                <span>|</span> 
-                <span>Published: {dateString} </span>
-            </div>
-            <div className="detail-main-content">
-                <img className="detail-img" alt={post.title} src={post.media.m}/>
-                <div className="main-content">
-                    <p>{loremIpsumText}</p>
-                    <p>{loremIpsumText}</p>
-                    <div className="detail-tag-container">
-                        <span>Tags: </span>
-                        <ul>
-                            {post.tags.split(" ").map((t,i) => 
-                                <li key={i}>{t}</li>
-                            )}
-                        </ul>
+        <div className="white-border">
+            <div className="detail-container" >
+                <div className="detail-header">
+                    <a href={post.link} className="main-title">{post.title}</a>
+                    <button className="button back-button" onClick={()=>{window.history.back()}}>Back</button>
+                </div>
+                <div className="detail-info">
+                    <a className="button" href={AUTHOR_PAGE_URL.replace("{id}", post.author_id)}>Photo author</a> 
+                    <span>|</span> 
+                    <span>Published: {dateString} </span>
+                </div>
+                <div className="detail-main-content">
+                    <img className="detail-img" alt={post.title} src={post.media.m}/>
+                    <div className="main-content">
+                        <p>{loremIpsumText}</p>
+                        <p>{loremIpsumText}</p>
+                        <div className="detail-tag-container">
+                            <span>Tags: </span>
+                            <ul>
+                                {post.tags.split(" ").map((t,i) => 
+                                    <li key={i}>{t}</li>
+                                )}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

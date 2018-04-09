@@ -10,7 +10,7 @@ const API_URL = "https://api.flickr.com/services/feeds/photos_public.gne?tags=po
 const AUTHOR_PAGE_URL = "https://www.flickr.com/photos/{id}/"
 const DEFAULT_LOAD_TEXT = "Loading post..."
 const DEFAULT_TITLE = " - Missing Title -  "
-const IMG_PLACEHOLDER_URL = "http://via.placeholder.com/200x200?text=?"
+const IMG_PLACEHOLDER_URL = "https://via.placeholder.com/200x200?text=?"
 const DETAIL_URL = "/detail"
 
 
@@ -149,18 +149,18 @@ export class FlickrList extends React.Component {
           {
             loaded ?
             <div className="main-content">
-              <h1 style={{maxWidth:this.state.screen.width * this.state.screen.textScaleDown}}>
+              <h1  className="main-title" style={{maxWidth:this.state.screen.width * this.state.screen.textScaleDown}}>
                 <Link to={{pathname : DETAIL_URL, state : post}}>{title.trim() ? title : DEFAULT_TITLE}</Link>
               </h1>
               <MediaQuery query="(max-width: 800px)">
                   <span>Published: {dateString} </span>
                 </MediaQuery>
               <div className="detail-content">
-                <a href={AUTHOR_PAGE_URL.replace("{id}", post.author_id)} >Post author</a>
+                <a href={AUTHOR_PAGE_URL.replace("{id}", post.author_id)} className="button">Post author</a>
                 <MediaQuery query="(min-width: 800px)">
                   <span>Published: {dateString} </span>
                 </MediaQuery>
-                <a href={post.link}>View on Flickr</a>
+                <a href={post.link} className="button">View on Flickr</a>
               </div> 
             </div>
             :<div className="main-content">{title}</div>
@@ -216,7 +216,7 @@ export class FlickrList extends React.Component {
                 autoHeight
                 autoWidth
                 width={width}
-                className="flickr-list"
+                className="white-border"
                 onRowsRendered={onRowsRendered}
                 rowCount={this.state.list.length}
                 rowHeight={this.getRowHeight}
