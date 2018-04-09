@@ -56,7 +56,7 @@ export class FlickrList extends React.Component {
         let rowScaleDown = 0.2;
         let textScaleDown = 0.66;
         if(window.innerWidth < 400){
-          rowScaleDown = 0.3;
+          rowScaleDown = 0.25;
           textScaleDown = 0.53;
         }
         this.setState({screen : 
