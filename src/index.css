@@ -38,10 +38,10 @@ html, body {
   width: 100%; }
 
 .flickr-list {
-  border: 1px solid black; }
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.3); }
 
 .post {
-  border: 1px solid grey;
   display: flex;
   background-color: white; }
   .post span {
@@ -88,7 +88,12 @@ html, body {
       margin-left: 10px;
       margin-right: 10px;
       white-space: nowrap;
-      font-size: 3vw; }
+      font-size: 2.5vw;
+      border: 1px solid #D75B48;
+      border-radius: 10px;
+      padding: 8px;
+      background-color: #547779;
+      color: white; }
 
 .search-container {
   margin: 0 0 20px 0; }
