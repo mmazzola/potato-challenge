@@ -7,11 +7,9 @@ $color2: #547779;
 $color3: #F2AE72;
 $color4: #D75B48;
 $color5: white;
+$color6: #E9EFEF;
 
 $textColor: black;
-
-/* DIMENSIONS */
-$img_width_perc : 12%;
 
 html, body {
   font: 100% $font-stack;
@@ -77,10 +75,10 @@ html, body {
     flex:1 0 25%;
     padding:10px;
     padding-right: 13px;
-    background-color: $color5; 
+    background-color: $color6; 
     .image{
-      box-shadow: 3px 3px rgba(0,0,0,0.7);
       max-width: 20vw;
+      object-fit: contain;
     }
   }
   .main-content{
